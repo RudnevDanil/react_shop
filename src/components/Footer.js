@@ -7,6 +7,7 @@ export default function Footer() {
                 <div className='col-sm'>
                     <h4>Contact us</h4>
                     <ul className='list-unstyled'>
+                        <li>&nbsp;</li>
                         <li>Rostov-on-Don</li>
                         <li>Chekhov Avenue, 109</li>
                         <li>Office 249</li>
