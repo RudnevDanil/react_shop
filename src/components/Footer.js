@@ -4,7 +4,7 @@ export default function Footer() {
     return (
         <div className='container-fluid bg-dark text-light'>
             <div className='row'>
-                <div className='col-sm'>
+                <div className='col-sm ms-5'>
                     <h4>Contact us</h4>
                     <ul className='list-unstyled'>
                         <li>&nbsp;</li>
@@ -15,7 +15,7 @@ export default function Footer() {
                     </ul>
                 </div>
 
-                <div className='col-sm'>
+                <div className='col-sm-2'>
                     <h4>Navigation</h4>
                     <ul className='list-unstyled'>
                         <li>Home</li>
@@ -26,7 +26,7 @@ export default function Footer() {
                     </ul>
                 </div>
 
-                <div className='col-sm'>
+                <div className='col-sm-2 me-5'>
                     <h4>Categories</h4>
                     <ul className='list-unstyled'>
                         <li>Lorem Ipsum</li>
@@ -37,7 +37,7 @@ export default function Footer() {
                     </ul>
                 </div>
             </div>
-            <div>
+            <div className='ms-5'>
                 <p className='text-xs-center'>
                     &copy;{new Date().getFullYear()}Camp shop - All Rights Reserved
                 </p>
