@@ -3,7 +3,7 @@ import logo from '../logo.png'
 
 export default function Navbar() {
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark position-sticky top-0">
             <div className="container-fluid">
 
                 <a className="navbar-brand mx-5" href="#">

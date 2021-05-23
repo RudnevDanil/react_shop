@@ -1,0 +1,8 @@
+ul li a{
+    color: #82989a;
+    text-decoration: none
+}
+
+ul li a:hover, h4, ul li{
+    color: #f8f9fa;
+}
