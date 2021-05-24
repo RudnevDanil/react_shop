@@ -3,7 +3,7 @@ import './Footer.css'
 
 export default function Footer() {
     return (
-        <div className='container-fluid bg-dark text-light position-static bottom-50'>
+        <div style={{height: "100%"}} className='container-fluid bg-dark text-light'>
             <div className='row'>
                 <div className='col-sm ms-5'>
                     <h4>Contact us</h4>
