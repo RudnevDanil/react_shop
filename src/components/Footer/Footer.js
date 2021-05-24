@@ -16,7 +16,7 @@ export default function Footer() {
                     </ul>
                 </div>
 
-                <div className='col-sm-2'>
+                <div className='col-sm-2 d-none d-lg-block'>
                     <h4>Navigation</h4>
                     <ul className='list-unstyled'>
                         <li><a href="/">Home</a></li>
@@ -27,7 +27,7 @@ export default function Footer() {
                     </ul>
                 </div>
 
-                <div className='col-sm-2 me-5'>
+                <div className='col-sm-2 me-5 d-none d-lg-block'>
                     <h4>Categories</h4>
                     <ul className='list-unstyled'>
                         <li><a href="/">Lorem Ipsum</a></li>

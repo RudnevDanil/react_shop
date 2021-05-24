@@ -9,6 +9,9 @@ export default function Navbar() {
                 <a className="navbar-brand mx-5" href="#">
                     <img src={logo} alt='logo' style={{width:30, height: 30}} />
                 </a>
+                <a className="navbar-brand mx-5" href="#">
+                    Camp Shop
+                </a>
 
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"

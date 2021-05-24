@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <div style={{height: "10vh"}}><Navbar/></div>
       <div style={{minHeight: "55vh"}}>
-          <LoremIpsum />
+          {/*<LoremIpsum />*/}
       </div>
       <div style={{height: "35vh"}}><Footer /></div>
     </div>
