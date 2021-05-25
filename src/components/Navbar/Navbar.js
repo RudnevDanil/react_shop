@@ -1,6 +1,7 @@
 import React from 'react'
-import logo from '../logo.png'
+import logo from '../../logo.png'
 import {Link} from "react-router-dom";
+import "./Navbar.css"
 
 export default function Navbar() {
     return (
@@ -17,7 +18,9 @@ export default function Navbar() {
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
+                    <span>
+                        <i className="fas fa-bars" style={{color:"#fff"}}></i>
+                    </span>
                 </button>
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">

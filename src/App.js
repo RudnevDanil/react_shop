@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import LoremIpsum from "./components/LoremIpsum";
 import {Switch, Route} from 'react-router-dom';
@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="App">
       <div style={{height: "10vh"}}><Navbar/></div>
-      <div style={{minHeight: "55vh"}}>
+      <div style={{minHeight: "60vh"}}>
           {/*<LoremIpsum />*/}
           <Switch>
               <Route exact path="/" component={Home}></Route>
@@ -28,7 +28,7 @@ function App() {
               <Route component={PageNotFound}></Route>
           </Switch>
       </div>
-      <div style={{height: "35vh"}}><Footer /></div>
+      <div style={{height: "30vh"}}><Footer /></div>
     </div>
   );
 }
