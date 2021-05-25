@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="App">
       <div style={{height: "10vh"}}><Navbar/></div>
-      <div style={{minHeight: "60vh"}}>
+      <div style={{minHeight: "64vh"}}>
           {/*<LoremIpsum />*/}
           <Switch>
               <Route exact path="/" component={Home}></Route>
@@ -28,7 +28,7 @@ function App() {
               <Route component={PageNotFound}></Route>
           </Switch>
       </div>
-      <div style={{height: "30vh"}}><Footer /></div>
+      <div style={{height: "26vh", fontSize: "0.7rem"}}><Footer /></div>
     </div>
   );
 }
