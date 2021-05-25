@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="App">
       <div style={{height: "10vh"}}><Navbar/></div>
-      <div style={{minHeight: "64vh"}}>
+      <div style={{minHeight: "64vh", backgroundColor:"#fff"}}>
           {/*<LoremIpsum />*/}
           <Switch>
               <Route exact path="/" component={Home}></Route>
