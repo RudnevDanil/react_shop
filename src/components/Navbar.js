@@ -1,17 +1,18 @@
 import React from 'react'
 import logo from '../logo.png'
+import {Link} from "react-router-dom";
 
 export default function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark position-sticky top-0">
             <div className="container-fluid">
 
-                <a className="navbar-brand mx-5" href="#">
+                <Link className="navbar-brand mx-5" to="/">
                     <img src={logo} alt='logo' style={{width:30, height: 30}} />
-                </a>
-                <a className="navbar-brand mx-5" href="#">
+                </Link>
+                <Link className="navbar-brand mx-5" to="/">
                     Camp Shop
-                </a>
+                </Link>
 
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -23,33 +24,33 @@ export default function Navbar() {
                     <ul className="navbar-nav m-auto  mb-2 mb-lg-0">
 
                         <li className="nav-item">
-                            <a className="nav-link active text-uppercase mx-3" href="#">
+                            <Link className="nav-link active text-uppercase mx-3" to="/">
                                 Home&nbsp;<i className="fas fa-home"></i>
-                            </a>
+                            </Link>
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link text-uppercase mx-3" href="#">
+                            <Link className="nav-link text-uppercase mx-3" to="/catalog">
                                 Catalog
-                            </a>
+                            </Link>
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link text-uppercase mx-3" href="#">
+                            <Link className="nav-link text-uppercase mx-3" to="/contacts">
                                 Contacts
-                            </a>
+                            </Link>
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link text-uppercase mx-3" href="#">
+                            <Link className="nav-link text-uppercase mx-3" to="/delivery">
                                 Delivery&nbsp;<i className="fas fa-truck"></i>
-                            </a>
+                            </Link>
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link text-uppercase mx-3" href="#">
+                            <Link className="nav-link text-uppercase mx-3" to="/cart">
                                 Cart&nbsp;<i className="fas fa-shopping-cart"></i>
-                            </a>
+                            </Link>
                         </li>
 
                     </ul>

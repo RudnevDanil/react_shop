@@ -1,5 +1,6 @@
 import React from 'react'
 import './Footer.css'
+import {Link} from "react-router-dom";
 
 export default function Footer() {
     return (
@@ -19,22 +20,22 @@ export default function Footer() {
                 <div className='col-sm-2 d-none d-lg-block'>
                     <h4>Navigation</h4>
                     <ul className='list-unstyled'>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/">Catalog</a></li>
-                        <li><a href="/">Contacts</a></li>
-                        <li><a href="/">Delivery</a></li>
-                        <li><a href="/">Cart</a></li>
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/catalog">Catalog</Link></li>
+                        <li><Link to="/contacts">Contacts</Link></li>
+                        <li><Link to="/delivery">Delivery</Link></li>
+                        <li><Link to="/cart">Cart</Link></li>
                     </ul>
                 </div>
 
                 <div className='col-sm-2 me-5 d-none d-lg-block'>
                     <h4>Categories</h4>
                     <ul className='list-unstyled'>
-                        <li><a href="/">Lorem Ipsum</a></li>
-                        <li><a href="/">Lorem Ipsum</a></li>
-                        <li><a href="/">Lorem Ipsum</a></li>
-                        <li><a href="/">Lorem Ipsum</a></li>
-                        <li><a href="/">Lorem Ipsum</a></li>
+                        <li><Link to="/Lorem">Lorem Ipsum</Link></li>
+                        <li><Link to="/Lorem">Lorem Ipsum</Link></li>
+                        <li><Link to="/Lorem">Lorem Ipsum</Link></li>
+                        <li><Link to="/Lorem">Lorem Ipsum</Link></li>
+                        <li><Link to="/Lorem">Lorem Ipsum</Link></li>
                     </ul>
                 </div>
             </div>
