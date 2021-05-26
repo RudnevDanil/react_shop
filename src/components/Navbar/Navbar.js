@@ -24,7 +24,7 @@ export default function Navbar() {
                 </button>
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav m-auto  mb-2 mb-lg-0">
+                    <ul className="navbar-nav m-auto  mb-2 mb-lg-0" style={{fontSize: "0.7rem"}}>
 
                         <li className="nav-item">
                             <Link className="nav-link active text-uppercase mx-3" to="/">
@@ -47,6 +47,12 @@ export default function Navbar() {
                         <li className="nav-item">
                             <Link className="nav-link text-uppercase mx-3" to="/delivery">
                                 Delivery&nbsp;<i className="fas fa-truck"></i>
+                            </Link>
+                        </li>
+
+                        <li className="nav-item">
+                            <Link className="nav-link text-uppercase mx-3" to="/payment">
+                                Payment&nbsp;<i className="fas fa-money-bill-alt"></i>
                             </Link>
                         </li>
 

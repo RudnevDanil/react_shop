@@ -7,7 +7,7 @@ export default function Footer() {
         <div style={{height: "100%"}} className='container-fluid bg-dark text-light'>
             <div className='row'>
                 <div className='col-sm ms-5'>
-                    <h4>Contact us</h4>
+                    <h5>Contact us</h5>
                     <ul className='list-unstyled'>
                         <li>&nbsp;</li>
                         <li>Rostov-on-Don</li>
@@ -18,18 +18,19 @@ export default function Footer() {
                 </div>
 
                 <div className='col-sm-2 d-none d-lg-block'>
-                    <h4>Navigation</h4>
+                    <h5>Navigation</h5>
                     <ul className='list-unstyled'>
                         <li><Link to="/">Home</Link></li>
                         <li><Link to="/catalog">Catalog</Link></li>
                         <li><Link to="/contacts">Contacts</Link></li>
                         <li><Link to="/delivery">Delivery</Link></li>
+                        <li><Link to="/payment">Payment</Link></li>
                         <li><Link to="/cart">Cart</Link></li>
                     </ul>
                 </div>
 
                 <div className='col-sm-2 me-5 d-none d-lg-block'>
-                    <h4>Categories</h4>
+                    <h5>Categories</h5>
                     <ul className='list-unstyled'>
                         <li><Link to="/Lorem">Lorem Ipsum</Link></li>
                         <li><Link to="/Lorem">Lorem Ipsum</Link></li>
