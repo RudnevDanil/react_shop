@@ -12,6 +12,8 @@ import Delivery from './components/pages/Delivery';
 import Payment from './components/pages/Payment';
 import Cart from './components/pages/Cart';
 import PageNotFound from './components/pages/PageNotFound';
+import Admin from "./components/pages/Admin";
+import NewItem from "./components/pages/NewItem";
 
 
 function App() {
@@ -19,15 +21,16 @@ function App() {
     <div className="App">
       <div style={{height: "10vh"}}><Navbar/></div>
       <div style={{minHeight: "62vh", backgroundColor:"#fff"}}>
-          {/*<LoremIpsum />*/}
           <Switch>
-              <Route exact path="/" component={Home}></Route>
-              <Route path="/catalog" component={Catalog}></Route>
-              <Route path="/contacts" component={Contacts}></Route>
-              <Route path="/delivery" component={Delivery}></Route>
-              <Route path="/payment" component={Payment}></Route>
-              <Route path="/cart" component={Cart}></Route>
-              <Route component={PageNotFound}></Route>
+              <Route exact path="/" component={Home}/>
+              <Route path="/catalog" component={Catalog}/>
+              <Route path="/contacts" component={Contacts}/>
+              <Route path="/delivery" component={Delivery}/>
+              <Route path="/payment" component={Payment}/>
+              <Route path="/cart" component={Cart}/>
+              <Route path="/admin" component={Admin}/>
+              <Route path="/newitem" component={NewItem}/>
+              <Route component={PageNotFound}/>
           </Switch>
       </div>
       <div style={{height: "28vh", fontSize: "0.7rem"}}><Footer /></div>
