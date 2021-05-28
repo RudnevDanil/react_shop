@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from "react-router-dom";
+import {testItem} from "../Catalog/testCatalogData";
 
 export default class Admin extends Component{
     constructor(props) {
@@ -19,7 +20,7 @@ export default class Admin extends Component{
                     <div className="col-md-12">
                         <div className="row">
                             <div className="col-md-4">
-                                <Link to="/newitem" className="btn btn-dark mt-4">
+                                <Link to={{pathname:"/item", props: {adminMode: true}}} className="btn btn-dark mt-4">
                                     Create new Item&nbsp;
                                     <i className="fas fa-plus-square"/>
                                 </Link>

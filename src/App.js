@@ -13,7 +13,7 @@ import Payment from './components/pages/Payment';
 import Cart from './components/pages/Cart';
 import PageNotFound from './components/pages/PageNotFound';
 import Admin from "./components/pages/Admin";
-import NewItem from "./components/pages/NewItem";
+import Item from "./components/pages/Item";
 
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
               <Route path="/payment" component={Payment}/>
               <Route path="/cart" component={Cart}/>
               <Route path="/admin" component={Admin}/>
-              <Route path="/newitem" component={NewItem}/>
+              <Route path="/item" component={Item}/>
               <Route component={PageNotFound}/>
           </Switch>
       </div>

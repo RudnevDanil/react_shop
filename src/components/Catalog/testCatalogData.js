@@ -15,7 +15,7 @@ import img_5 from "./testData/testItem/5.jpg"
 import img_6 from "./testData/testItem/6.jpg"
 
 
-const categories = [
+export const categories = [
     {
         title: 'camping', // 1
         subcategories: [
@@ -69,9 +69,21 @@ class Item {
         this.subcategory = subcategory
         this.price = price
     }
+
+    getObj(){
+        return {
+            id: this.id,
+            imgs: this.imgs,
+            title: this.title,
+            description: this.description,
+            category: this.category,
+            subcategory: this.subcategory,
+            price: this.price
+        }
+    }
 }
 
-const items = []
+export const items = []
 
 items.push(new Item("0", [img_1_1_1_1, img_1_1_1_2, img_1_1_1_3],
     "Тент Outventure", "","",
@@ -88,17 +100,15 @@ items.push(new Item("1", [img_1_1_2_1, img_1_1_2_2, img_1_1_2_3],
             + "ВОДОНЕПРОНИЦАЕМОСТЬ:\tМатериал с показателем водонепроницаемости 3000 мм в.ст. выдерживает даже затяжные дожди. Все швы проклеены.\n"
             + "ВЕНТИЛЯЦИЯ:\tБоковые панели из сетки обеспечивают оптимальную циркуляцию воздуха.", "8999")) // 1.1.2
 
-const testItem = new Item(
+export const testItem = new Item(
     "2",
     [ img_1, img_2, img_3, img_4, img_5, img_6 ],
     "Сумка пикниковая на 4 персоны Outventure, 2021",
-    "",
-    "",
+    "Camping",
+    "Camping furniture",
     "Вместительная сумка для пикника рассчитана на 4 персоны и оснащена всеми необходимыми приборами для наиболее комфортной трапезы. " +
     "Тарелки и чашки изготовлены из пластика, ножи, вилки и ложки — из качественной нержавеющей стали. " +
     "Размеры сумки 54х23х30 см. Объем 25 л.\n" +
     "Комплектация:\t4 тарелки, 4 салфетки, 4 ложки, 4 вилки, 4 ножа, 4 бокала для вина, открывалка, солонка, перечница.",
     "5499"
 )
-
-export default {categories, items, testItem}
