@@ -40,7 +40,7 @@ export default function CardsCarousel() {
                                             <Card specOffer/>
                                         </div>
                                         <div className="col-4">
-                                            <Card specOffer discount="-25%"/>
+                                            <Card discount="-25%"/>
                                         </div>
                                     </div>
                                 </div>

@@ -19,7 +19,15 @@ import Item from "./components/pages/Item";
 function App() {
   return (
     <div className="App">
-      <div style={{height: "10vh", fontSize: "0.7rem"}}><Navbar/></div>
+      <div className="container-fluid bg-dark position-sticky top-0" style={{
+          height: "10vh",
+          fontSize: "0.7rem",
+          /*position: "sticky",*/
+          /*top: "0",*/
+          zIndex: "2222",
+      }}>
+          <Navbar/>
+      </div>
       <div style={{minHeight: "62vh", backgroundColor:"#eee"}}>
           <Switch>
               <Route exact path="/" component={Home}/>

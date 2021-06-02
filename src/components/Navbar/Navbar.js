@@ -5,8 +5,8 @@ import "./Navbar.css"
 
 export default function Navbar() {
     return (
-        <div className="container">
-            <nav className="navbar navbar-expand-md navbar-dark bg-dark position-sticky top-0">
+        <div className="container h-100">
+            <nav className="navbar navbar-expand-md navbar-dark bg-dark h-100 ">
                 <div className="container-fluid">
 
                     <Link className="navbar-brand" to="/">
@@ -16,7 +16,7 @@ export default function Navbar() {
                         Camp Shop
                     </Link>
 
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    <button className="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span>
@@ -24,7 +24,7 @@ export default function Navbar() {
                         </span>
                     </button>
 
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div className="collapse navbar-collapse bg-dark ps-3 " style={{zIndex: "2222"}} id="navbarSupportedContent">
                         <ul className="navbar-nav m-auto" style={{fontSize: "0.85rem"}}>
 
                             <li className="nav-item">

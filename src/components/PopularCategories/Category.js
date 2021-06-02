@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Category(props) {
     return(
-        <div className={props.w + " pe-0 " + (props.r ? "ps-3 " : "")}>
+        <div className={props.w + " px-0 " + (props.r ? "ps-3 " : "")}>
             <div  style={{backgroundColor:"#fff"}}>
                 <div className="row pt-2">
                     <div className="col-7 ps-4">
