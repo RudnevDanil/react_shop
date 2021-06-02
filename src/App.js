@@ -19,7 +19,7 @@ import Item from "./components/pages/Item";
 function App() {
   return (
     <div className="App">
-      <div style={{height: "10vh"}}><Navbar/></div>
+      <div style={{height: "10vh", fontSize: "0.7rem"}}><Navbar/></div>
       <div style={{minHeight: "62vh", backgroundColor:"#eee"}}>
           <Switch>
               <Route exact path="/" component={Home}/>
@@ -33,7 +33,7 @@ function App() {
               <Route component={PageNotFound}/>
           </Switch>
       </div>
-      <div style={{height: "28vh", fontSize: "0.7rem"}}><Footer /></div>
+      <div style={{height: "28vh", fontSize: "0.9rem"}}><Footer /></div>
     </div>
   );
 }
