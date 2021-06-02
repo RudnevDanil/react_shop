@@ -19,7 +19,7 @@ export default function Carousel(){
     })
 
     return (
-        <div className="container">
+        <div className="container px-0">
             <div id="carousel_1" className="carousel slide" data-bs-ride="carousel">
                 <div className="carousel-indicators">
                     {slider}
