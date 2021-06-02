@@ -5,67 +5,69 @@ import "./Navbar.css"
 
 export default function Navbar() {
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark position-sticky top-0">
-            <div className="container-fluid">
+        <div className="container">
+            <nav className="navbar navbar-expand-md navbar-dark bg-dark position-sticky top-0">
+                <div className="container-fluid">
 
-                <Link className="navbar-brand mx-5" to="/">
-                    <img src={logo} alt='logo' style={{width:30, height: 30}} />
-                </Link>
-                <Link className="navbar-brand mx-5" to="/">
-                    Camp Shop
-                </Link>
+                    <Link className="navbar-brand" to="/">
+                        <img src={logo} alt='logo' style={{width:30, height: 30}} />
+                    </Link>
+                    <Link className="navbar-brand" to="/">
+                        Camp Shop
+                    </Link>
 
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span>
-                        <i className="fas fa-bars" style={{color:"#fff"}}></i>
-                    </span>
-                </button>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span>
+                            <i className="fas fa-bars" style={{color:"#fff"}}/>
+                        </span>
+                    </button>
 
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav m-auto  mb-2 mb-lg-0" style={{fontSize: "0.7rem"}}>
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul className="navbar-nav m-auto" style={{fontSize: "0.85rem"}}>
 
-                        <li className="nav-item">
-                            <Link className="nav-link active text-uppercase mx-3" to="/">
-                                Home&nbsp;<i className="fas fa-home"></i>
-                            </Link>
-                        </li>
+                            <li className="nav-item">
+                                <Link className="nav-link active text-uppercase mx-lg-2" to="/">
+                                    Home&nbsp;<i className="fas fa-home"/>
+                                </Link>
+                            </li>
 
-                        <li className="nav-item">
-                            <Link className="nav-link text-uppercase mx-3" to="/catalog">
-                                Catalog
-                            </Link>
-                        </li>
+                            <li className="nav-item">
+                                <Link className="nav-link text-uppercase mx-lg-2" to="/catalog">
+                                    Catalog
+                                </Link>
+                            </li>
 
-                        <li className="nav-item">
-                            <Link className="nav-link text-uppercase mx-3" to="/contacts">
-                                Contacts
-                            </Link>
-                        </li>
+                            <li className="nav-item">
+                                <Link className="nav-link text-uppercase mx-lg-2" to="/contacts">
+                                    Contacts
+                                </Link>
+                            </li>
 
-                        <li className="nav-item">
-                            <Link className="nav-link text-uppercase mx-3" to="/delivery">
-                                Delivery&nbsp;<i className="fas fa-truck"></i>
-                            </Link>
-                        </li>
+                            <li className="nav-item">
+                                <Link className="nav-link text-uppercase mx-lg-2" to="/delivery">
+                                    Delivery&nbsp;<i className="fas fa-truck"/>
+                                </Link>
+                            </li>
 
-                        <li className="nav-item">
-                            <Link className="nav-link text-uppercase mx-3" to="/payment">
-                                Payment&nbsp;<i className="fas fa-money-bill-alt"></i>
-                            </Link>
-                        </li>
+                            <li className="nav-item">
+                                <Link className="nav-link text-uppercase mx-lg-2" to="/payment">
+                                    Payment&nbsp;<i className="fas fa-money-bill-alt"/>
+                                </Link>
+                            </li>
 
-                        <li className="nav-item">
-                            <Link className="nav-link text-uppercase mx-3" to="/cart">
-                                Cart&nbsp;<i className="fas fa-shopping-cart"></i>
-                            </Link>
-                        </li>
+                            <li className="nav-item">
+                                <Link className="nav-link text-uppercase mx-lg-2" to="/cart">
+                                    Cart&nbsp;<i className="fas fa-shopping-cart"/>
+                                </Link>
+                            </li>
 
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
     )
 }
 
