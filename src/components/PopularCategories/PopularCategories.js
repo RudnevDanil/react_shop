@@ -11,7 +11,7 @@ import Category from "./Category";
 
 export default function () {
     return(
-        <div className="container  d-none d-lg-block">
+        <div className="container pb-5 d-none d-lg-block">
             <h3>Popular categories</h3>
             <div className="row pb-3" style={{backgroundColor:"#eee"}}>
                 <Category w="col-md-6" img={guns} label={"Guns"} r/>

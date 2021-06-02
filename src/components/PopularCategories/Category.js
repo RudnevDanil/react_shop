@@ -1,8 +1,6 @@
 import React from 'react'
-import guns from "./gun.png";
 
-export default function (props) {
-
+export default function Category(props) {
     return(
         <div className={props.w + " pe-0 " + (props.r ? "ps-3 " : "")}>
             <div  style={{backgroundColor:"#fff"}}>
@@ -12,7 +10,7 @@ export default function (props) {
                     </div>
                 </div>
                 <div className="row d-flex justify-content-center" style={{height: "18vh"}}>
-                    <img src={props.img} className=".img-fluid mh-100" />
+                    <img src={props.img} className="img-fluid mh-100" />
                 </div>
             </div>
         </div>
