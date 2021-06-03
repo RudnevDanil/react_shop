@@ -3,12 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {BrowserRouter as Router} from "react-router-dom";
+import {Context, firestore, firebase} from "./base"
 
 ReactDOM.render(
   <React.StrictMode>
-      <Router>
-          <App />
-      </Router>
+      <Context.Provider vlaue={{
+          firestore,
+          firebase,
+      }}>
+          <Router>
+              <App />
+          </Router>
+      </Context.Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
