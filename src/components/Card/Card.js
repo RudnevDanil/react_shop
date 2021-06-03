@@ -22,7 +22,6 @@ export default function Card(props) {
     if(!hit && !offer && !discount)
         placeholder = <div className="col-12">&nbsp;</div>
 
-    console.log(props.removeFromCartBut)
     const button = props.removeFromCartBut && props.removeFromCartBut === "true" ?
         (
             <button type="button" className="btn btn-danger float-end mw-100">
