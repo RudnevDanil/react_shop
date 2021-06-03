@@ -22,6 +22,21 @@ export default function Card(props) {
     if(!hit && !offer && !discount)
         placeholder = <div className="col-12">&nbsp;</div>
 
+    console.log(props.removeFromCartBut)
+    const button = props.removeFromCartBut && props.removeFromCartBut === "true" ?
+        (
+            <button type="button" className="btn btn-danger float-end mw-100">
+                Remove&nbsp;
+                <i className="fas fa-trash-alt"></i>
+            </button>
+        ) :
+        (
+            <button type="button" className="btn btn-primary float-end mw-100">
+                To cart&nbsp;
+                <i className="fas fa-shopping-basket"/>
+            </button>
+        )
+
     const title = "title"
     const category = "category"
     const price = "price"
@@ -40,6 +55,7 @@ export default function Card(props) {
                 <h6 className="card-subtitle mb-2 text-muted">{category}</h6>
                 <br/>
                 <h5 className="card-title">{price}</h5>
+                {button}
             </div>
         </div>
     )
