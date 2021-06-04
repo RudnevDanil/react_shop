@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 //import {categories} from "../Catalog/testCatalogData.js"
 import CardGrid from "../CardGrid/CardGrid";
-import LoadCategories from "../../functionality/loadCategories";
+import LoadCategories from "../../functionality/LoadCategories";
 
 export default class Catalog extends Component {
 

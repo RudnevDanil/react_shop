@@ -1,4 +1,3 @@
-import {useCollectionData} from "react-firebase-hooks/firestore";
 import {firestore} from "../base"
 
 async function LoadCategories() {

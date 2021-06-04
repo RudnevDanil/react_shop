@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
 import {Link} from "react-router-dom";
 import {testItem} from "../Catalog/testCatalogData";
+import {firestore, firebase} from "../../base"
 
 export default class Admin extends Component{
     constructor(props) {
         super(props);
         this.state = {
+            authError: false,
             logged: false,
             addCategoryDone: false,
             addSubCategoryDone: false,
@@ -76,7 +78,7 @@ export default class Admin extends Component{
                             </div>
                         </div>
                         <div className="col-md-2">
-                            <button type="button" className="btn btn-dark mt-4" onClick={this.logInClicked}>
+                            <button type="button" className={"btn " + (this.state.authError ? "btn-danger" : "btn-dark") + " mt-4"} onClick={this.logInClicked}>
                                 Log in&nbsp;
                                 <i className="fas fa-caret-right"/>
                             </button>
@@ -93,11 +95,16 @@ export default class Admin extends Component{
     }
 
     logInClicked = () =>{
-        console.log(" --- Test --- need auth validation via server")
-
-        this.setState({
-            logged: true
-        })
+        firebase.auth().signInWithEmailAndPassword("admin@admin.ru", document.getElementById("adminPass").value)
+            .then(user => {
+                console.log(user)
+                this.setState({logged: true})
+            })
+            .catch(err =>{
+                console.log(err)
+                this.setState({authError: true})
+                setTimeout(()=>{this.setState({authError: false})}, 1000)
+            })
     }
 
     newCategory = () =>{
