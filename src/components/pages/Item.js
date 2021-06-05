@@ -1,10 +1,22 @@
 import React, {Component} from 'react'
 import {Link} from "react-router-dom";
 import {testItem} from "../Catalog/testCatalogData";
+import {firestore} from "../../base";
+import LoadCategories from "../../functionality/LoadCategories";
 
 export default class Item extends Component{
     constructor(props) {
         super(props);
+
+        console.log(props)
+
+        this.btnColors = {
+            default: "btn-dark",
+            error: "btn-danger",
+            success: "btn-success",
+            waiting: "btn-warning"
+        }
+
         const {id, imgs, title, category, subcategory, description, price} = props.location.props || {}
         this.state= {
             id: id || "",
@@ -16,13 +28,67 @@ export default class Item extends Component{
             price: price || "",
 
             adminMode: props.location.props && props.location.props.adminMode || false,
-        }
 
-        console.log(this.state)
+            saveButColor: this.btnColors.default,
+            categories: []
+        }
+    }
+
+    catSelect (selectId, onchange = null){
+        return (
+            this.state.categories.length ?
+                <select className="form-select" id={selectId} onChange={onchange}>
+                    <option value={-1} key={-1}/>
+                    {
+                        this.state.categories.map((obj, i) => {
+                            return <option value={obj.id} key={obj.id}>{obj.title}</option>
+                        })
+                    }
+                </select>
+                :
+                <div className="spinner-border" role="status"/>
+        )
+    }
+
+    subcatSelect (selectId, parentId){
+        return (
+            this.state.categories.length ?
+                <select className="form-select" id={selectId}>
+                    <option value={-1} key={-1}/>
+                    {
+                        this.state.categories
+                            .filter((el)=>{
+                                return el.id === parentId
+                            })
+                            .map((obj, i) => {
+                                return obj.subcategories.map(subcatEl =>{
+                                    return <option value={subcatEl.parentId} key={subcatEl.id}>{subcatEl.name}</option>
+                                })
+                            })
+                    }
+                </select>
+                :
+                <div className="spinner-border" role="status"/>
+        )
+    }
+
+    componentDidUpdate(prevProps) {
+        if(!this.state.categories.length) {
+            this.selectCatForRemoveSubcatChanged()
+        }
     }
 
     render()
     {
+        if(!this.state.categories.length) {
+            LoadCategories().then((result) => {
+                this.setState({categories: result})
+            })
+        }
+
+        const categoriesSelect = this.catSelect("categoriesSelect", this.selectCatForRemoveSubcatChanged)
+        const subcategoriesSelect = this.subcatSelect("subcategoriesSelect", this.state.catInRemoveSubCat)
+
         let [mode_1, mode_2] = ["d-none", ""]
         if(this.state.adminMode)
             [mode_1, mode_2] = [mode_2, mode_1]
@@ -91,12 +157,7 @@ export default class Item extends Component{
                                     Category:
                                 </div>
                                 <div className="col-8">
-                                    <select className="form-select">
-                                        <option value="DEFAULT" >Open this select menu</option> {/* TEST */}
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
+                                    {categoriesSelect}
                                 </div>
                             </div>
 
@@ -106,12 +167,7 @@ export default class Item extends Component{
                                     Subcategory:
                                 </div>
                                 <div className="col-8">
-                                    <select className="form-select">
-                                        <option value="DEFAULT" >Open this select menu</option> {/* TEST */}
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
+                                    {subcategoriesSelect}
                                 </div>
                             </div>
 
@@ -128,10 +184,20 @@ export default class Item extends Component{
                             {/* Button */}
                             <div className="row mb-2">
                                 <div className="col-4 fs-4">
-                                    <button type="button" className="btn btn-dark w-100" onClick={this.save}>
+                                    <button type="button" className={"btn " + this.state.saveButColor + " w-100"} onClick={this.save}>
                                         Save&nbsp;
-                                        <i className="far fa-save"></i>
+                                        <i className="far fa-save"/>
                                     </button>
+                                    {
+                                        this.state.id !== "" ?
+                                            <button type="button" className="btn btn-dark w-100" onClick={this.remove}>
+                                                Remove&nbsp;
+                                                <i className="fas fa-trash-alt"/>
+                                            </button>
+                                        :
+                                            ""
+                                    }
+
                                 </div>
                             </div>
                         </div>
@@ -154,7 +220,7 @@ export default class Item extends Component{
                                 {this.state.category}
                             </Link>
                             &nbsp;
-                            <i className="fas fa-angle-right"></i>
+                            <i className="fas fa-angle-right"/>
                             &nbsp;
                             <Link to={{pathname:"/catalog", props: {subcategory: this.state.subcategory}}} style={linkStyles}>
                                 {this.state.subcategory}
@@ -172,7 +238,7 @@ export default class Item extends Component{
                             <div className="row mb-2">
                                 <div className="col-12 fs-4">
                                     {this.state.price}
-                                    &nbsp;<i className="fas fa-ruble-sign"></i>
+                                    &nbsp;<i className="fas fa-ruble-sign"/>
                                 </div>
                             </div>
 
@@ -181,7 +247,7 @@ export default class Item extends Component{
                                 <div className="col-12 fs-4">
                                     <button type="button" className="btn btn-dark w-100" onClick={this.addToCart}>
                                         Buy&nbsp;
-                                        <i className="fas fa-shopping-basket"></i>
+                                        <i className="fas fa-shopping-basket"/>
                                     </button>
                                 </div>
                             </div>
@@ -219,7 +285,49 @@ export default class Item extends Component{
 
     }
 
-    addToCart = () =>{
+    save = async () => {
+        if(this.state.id === "")
+        {
+            // save
+            const title = document.getElementById("title").value
+            const category = document.getElementById("categoriesSelect")
+            const subcategory = document.getElementById("subcategoriesSelect")
+            const description = document.getElementById("description").value
+            const price = document.getElementById("price").value
+
+            if(!title || !category || !subcategory || category.value === -1 || subcategory.value === -1 || !description || !price)
+            {
+                this.setState({saveButColor: this.btnColors.error})
+                setTimeout(()=>{this.setState({saveButColor: this.btnColors.default})}, 1000)
+                return
+            }
+
+            this.setState({saveButColor: this.btnColors.waiting})
+            await firestore.collection('items').add({
+                title: title,
+                imgs: this.state.imgs,
+                category: category.value,
+                subcategory: subcategory.options[subcategory.selectedIndex].text,
+                description: description,
+                price: price,
+            })
+
+            this.setState({saveButColor: this.btnColors.success})
+            setTimeout(()=>{this.setState({saveButColor: this.btnColors.default})}, 1000)
+        }
+        else
+        {
+            // update
+        }
+    }
+
+    addToCart = () => {
         console.log(" --- Test --- need add to cart")
+    }
+
+    selectCatForRemoveSubcatChanged = () =>{
+        this.setState({
+            catInRemoveSubCat: document.getElementById("categoriesSelect").value
+        })
     }
 }

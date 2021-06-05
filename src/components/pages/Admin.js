@@ -9,10 +9,10 @@ export default class Admin extends Component{
         super(props);
 
         this.btnColors = {
-        default: "btn-dark",
-                error: "btn-danger",
-                success: "btn-success",
-                waiting: "btn-warning"
+            default: "btn-dark",
+            error: "btn-danger",
+            success: "btn-success",
+            waiting: "btn-warning"
         }
 
         this.state = {
