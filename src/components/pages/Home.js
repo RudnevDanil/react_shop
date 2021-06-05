@@ -23,7 +23,6 @@ export default function Home(){
 
             <Banner img={banner_1}/>
 
-            {/* carousel of 6 cards by 3 */}
             <CardsCarousel/>
 
             <Banner img={banner_2}/>

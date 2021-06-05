@@ -19,14 +19,15 @@ async function LoadCategories() {
         .then(querySnapshot => {
             subcategories = querySnapshot.docs.map(doc => {
                 return {
-                    parentId: doc.data().parent.id,
+                    id: doc.id,
+                    parentId: doc.data().parent,
                     name: doc.data().name
                 }
             });
         });
 
-    return categories.map(cat => {return {title: cat.name, subcategories:
-        subcategories.filter(el => el.parentId === cat.id).map(el => el.name)
+    return categories.map(cat => {return {title: cat.name, id: cat.id, subcategories:
+        subcategories.filter(el => el.parentId === cat.id)
     }})
 }
 

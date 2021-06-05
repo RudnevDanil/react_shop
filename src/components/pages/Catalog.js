@@ -9,18 +9,27 @@ export default class Catalog extends Component {
         categories: []
     }
 
+    componentWillUnmount() {
+        // fix Warning: Can't perform a React state update on an unmounted component
+        this.setState = (state,callback)=>{
+            return;
+        };
+    }
+
     render() {
-        const categories = LoadCategories().then((result) => {
-            this.setState({categories: result})
-        })
+        if(!this.state.categories.length) {
+            LoadCategories().then((result) => {
+                this.setState({categories: result})
+            })
+        }
 
         const cats = this.state.categories.length ?
             this.state.categories.map(obj => {
                 const subcats = obj.subcategories.map(subcat => (
-                    <div className="fs-4 ps-4">{subcat}</div>
+                    <div className="fs-4 ps-4" key={"subcat" + subcat.name}>{subcat.name}</div>
                 ))
                 return (
-                    <div>
+                    <div key={"cat" + obj.title}>
                         <div className="fs-4 fw-bold">{obj.title}</div>
                         {subcats}
                     </div>

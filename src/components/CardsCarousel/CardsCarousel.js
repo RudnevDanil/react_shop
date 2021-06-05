@@ -1,7 +1,10 @@
 import React from 'react'
 import Card from "../Card/Card";
+import LoadCards from "../../functionality/LoadCards"
 
 export default function CardsCarousel() {
+
+
     return(
         <div className="container">
             <div id="cardCarouselControls" className="carousel slide" data-bs-ride="carousel">

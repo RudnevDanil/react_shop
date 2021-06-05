@@ -7,7 +7,7 @@ import {Context, firestore, firebase} from "./base"
 
 ReactDOM.render(
   <React.StrictMode>
-      <Context.Provider vlaue={{
+      <Context.Provider value={{
           firestore,
           firebase,
       }}>
