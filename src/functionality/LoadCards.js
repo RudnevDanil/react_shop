@@ -4,15 +4,23 @@ import LoadCategories from "./LoadCategories";
 async function LoadCards(params) {
     let collection = firestore.collection("items")
 
-    if (params.amount && params.amount !== "")
-        collection = collection.limit(params.amount)
-
     if (params.category && params.category !== "")
         collection = collection.where("category", "==", params.category)
 
+    if (params.amount && params.amount !== "") {
+
+        collection = collection.orderBy("title")
+        if(params.lastVisible)
+            collection = collection.startAfter(params.lastVisible)
+        collection = collection.limit(params.amount)
+    }
+
+
     let items = []
+    let lastVisible = null
     await collection.get()
         .then(function (querySnapshot) {
+            lastVisible = querySnapshot.docs[querySnapshot.docs.length-1]
             querySnapshot.forEach(function (doc) {
                 const data = doc.data()
                 items.push({
@@ -29,7 +37,7 @@ async function LoadCards(params) {
         .catch(function (error) {
             console.log("Error getting documents: ", error);
         })
-    return items
+    return {items, lastVisible}
 }
 
 export default LoadCards

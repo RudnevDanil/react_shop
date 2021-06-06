@@ -5,14 +5,18 @@ import LoadCards from "../../functionality/LoadCards"
 export default class CardsCarousel extends Component{
 
     state = {
-        items: [],
+        items: {
+            items: [],
+            lastVisible: null
+        },
     }
 
     render() {
-        if(this.state.items.length === 0)
-            LoadCards({amount: 6/*, category: "2", subcategory: ""*/})
+        if(this.state.items.items.length === 0)
+            LoadCards({amount: 6, lastVisible: this.state.items.lastVisible/*, category: "2", subcategory: ""*/})
                 .then((items) => {
-                    this.setState({items})
+                    //console.log(items)
+                    this.setState({items: items})
                     return
                 })
 
@@ -22,7 +26,7 @@ export default class CardsCarousel extends Component{
         for (let i = 0; i < 6; i++)
             currentCards.push(
                 <div className="col-4">
-                    <Card item={this.state.items[i]} marks={marks[i]}/>
+                    <Card item={this.state.items.items[i]} marks={marks[i]}/>
                 </div>
             )
         const currentCardsRow = []
