@@ -1,20 +1,17 @@
 import {firestore} from "../base"
-import LoadCategories from "./LoadCategories";
 
 async function LoadCards(params) {
+
     let collection = firestore.collection("items")
+
+    if (params.subcategory && params.subcategory !== "")
+        collection = collection.where("subcategory", "==", params.subcategory)
 
     if (params.category && params.category !== "")
         collection = collection.where("category", "==", params.category)
 
-    if (params.amount && params.amount !== "") {
-
-        collection = collection.orderBy("title")
-        if(params.lastVisible)
-            collection = collection.startAfter(params.lastVisible)
+    if (params.amount && params.amount !== "")
         collection = collection.limit(params.amount)
-    }
-
 
     let items = []
     let lastVisible = null
@@ -37,7 +34,8 @@ async function LoadCards(params) {
         .catch(function (error) {
             console.log("Error getting documents: ", error);
         })
-    return {items, lastVisible}
+
+    return items
 }
 
 export default LoadCards

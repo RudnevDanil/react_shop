@@ -8,6 +8,7 @@ export default class Item extends Component{
     constructor(props) {
         super(props);
 
+        props = props.history.location.props
         console.log(props)
 
         this.btnColors = {
@@ -17,7 +18,7 @@ export default class Item extends Component{
             waiting: "btn-warning"
         }
 
-        const {id, imgs, title, category, subcategory, description, price} = props.location.props || {}
+        const {id, imgs, title, category, subcategory, description, price} = props || {}
         this.state= {
             id: id || "",
             imgs: imgs || [],
@@ -27,7 +28,7 @@ export default class Item extends Component{
             description: description || "",
             price: price || "",
 
-            adminMode: props.location.props && props.location.props.adminMode || false,
+            adminMode: props.adminMode || false,
 
             saveButColor: this.btnColors.default,
             categories: []
@@ -37,7 +38,7 @@ export default class Item extends Component{
     catSelect (selectId, onchange = null){
         return (
             this.state.categories.length ?
-                <select className="form-select" id={selectId} onChange={onchange}>
+                <select className="form-select" id={selectId} onChange={onchange} defaultValue={this.state.category}>
                     <option value={-1} key={-1}/>
                     {
                         this.state.categories.map((obj, i) => {
@@ -51,9 +52,11 @@ export default class Item extends Component{
     }
 
     subcatSelect (selectId, parentId){
+        if(!parentId)
+            parentId = this.state.category
         return (
             this.state.categories.length ?
-                <select className="form-select" id={selectId}>
+                <select className="form-select" id={selectId} defaultValue={this.state.subcategory}>
                     <option value={-1} key={-1}/>
                     {
                         this.state.categories
@@ -62,7 +65,7 @@ export default class Item extends Component{
                             })
                             .map((obj, i) => {
                                 return obj.subcategories.map(subcatEl =>{
-                                    return <option value={subcatEl.parentId} key={subcatEl.id}>{subcatEl.name}</option>
+                                    return <option value={subcatEl.name} key={subcatEl.id}>{subcatEl.name}</option>
                                 })
                             })
                     }
@@ -112,7 +115,7 @@ export default class Item extends Component{
         const imagesBlock = (
             <div className="row py-4 d-flex align-items-center justify-content-center">
                 {loadedPreview}
-                <div></div>
+                <div/>
                 <div className={"col-4 " + mode_1}>
                     <input type="file" className="form-control" id="uploadImgs" multiple onChange={this.onImageChange}/>
                 </div>
@@ -188,6 +191,8 @@ export default class Item extends Component{
                                         Save&nbsp;
                                         <i className="far fa-save"/>
                                     </button>
+                                </div>
+                                <div className="col-4 fs-4">
                                     {
                                         this.state.id !== "" ?
                                             <button type="button" className="btn btn-dark w-100" onClick={this.remove}>
@@ -197,7 +202,6 @@ export default class Item extends Component{
                                         :
                                             ""
                                     }
-
                                 </div>
                             </div>
                         </div>
@@ -286,7 +290,7 @@ export default class Item extends Component{
     }
 
     save = async () => {
-        if(this.state.id === "")
+        if(this.state.id === "") // new item
         {
             // save
             const title = document.getElementById("title").value
@@ -307,7 +311,8 @@ export default class Item extends Component{
                 title: title,
                 imgs: this.state.imgs,
                 category: category.value,
-                subcategory: subcategory.options[subcategory.selectedIndex].text,
+                //subcategory: subcategory.options[subcategory.selectedIndex].text,
+                subcategory: subcategory.value,
                 description: description,
                 price: price,
             })
@@ -315,9 +320,9 @@ export default class Item extends Component{
             this.setState({saveButColor: this.btnColors.success})
             setTimeout(()=>{this.setState({saveButColor: this.btnColors.default})}, 1000)
         }
-        else
+        else // update item
         {
-            // update
+            
         }
     }
 

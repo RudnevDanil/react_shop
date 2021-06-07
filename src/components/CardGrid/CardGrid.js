@@ -1,8 +1,8 @@
 import React from 'react'
 import Card from "../Card/Card";
 
-export default function Cart(props){
-    const cards = props.arr.map((id, i) => <Card removeFromCartBut={props.removeFromCartBut ? "true" : "false"} key={i}/>)
+export default function CardGrid(props){
+    const cards = props.items.map((el, i) => <Card item={el} removeFromCartBut={props.removeFromCartBut} key={i}/>)
 
     const cardRows = []
     for(let i = 0; i < cards.length; i+=4)
