@@ -1,17 +1,21 @@
-import {firestore} from "../base"
+import {firebase, firestore} from "../base"
 
 async function LoadCards(params) {
 
     let collection = firestore.collection("items")
 
-    if (params.subcategory && params.subcategory !== "")
-        collection = collection.where("subcategory", "==", params.subcategory)
+    if (params.arr && params.arr.length !== 0)
+        collection = collection.where(firebase.firestore.FieldPath.documentId(),"in", params.arr)
+    else {
+        if (params.subcategory && params.subcategory !== "")
+            collection = collection.where("subcategory", "==", params.subcategory)
 
-    if (params.category && params.category !== "")
-        collection = collection.where("category", "==", params.category)
+        if (params.category && params.category !== "")
+            collection = collection.where("category", "==", params.category)
 
-    if (params.amount && params.amount !== "")
-        collection = collection.limit(params.amount)
+        if (params.amount && params.amount !== "")
+            collection = collection.limit(params.amount)
+    }
 
     let items = []
     await collection.get()

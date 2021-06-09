@@ -13,7 +13,7 @@ export default function Footer() {
                         <li>Rostov-on-Don</li>
                         <li>Chekhov Avenue, 109</li>
                         <li>Office 249</li>
-                        <li>+7-(960)-463-88-88</li>
+                        <li>+7 (960) 463 88 88</li>
                     </ul>
                 </div>
 
