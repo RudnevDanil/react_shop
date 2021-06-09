@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {Link} from "react-router-dom";
-import {testItem} from "../Catalog/testCatalogData";
 import {firestore} from "../../base";
 import LoadCategories from "../../functionality/LoadCategories";
 
@@ -8,8 +7,14 @@ export default class Item extends Component{
     constructor(props) {
         super(props);
 
-        props = props.history.location.props
-        console.log(props)
+        // item reload
+        if(props.history.location.props) {
+            localStorage.setItem(props.history.location.key, JSON.stringify(props.history.location.props))
+            props = props.history.location.props
+        }
+        else
+            props = JSON.parse(localStorage.getItem(props.history.location.key))
+
 
         this.btnColors = {
             default: "btn-dark",
@@ -28,9 +33,9 @@ export default class Item extends Component{
             description: description || "",
             price: price || "",
 
-            adminMode: props.adminMode || false,
-
+            adminMode: localStorage.hasOwnProperty("adminMode") && localStorage.getItem("adminMode") === "true",
             saveButColor: this.btnColors.default,
+            removeButColor: this.btnColors.default,
             categories: []
         }
     }
@@ -107,7 +112,7 @@ export default class Item extends Component{
                     width: "20vw",
                     height: "20vh"
                 }}>
-                    <img src={img} className="img-fluid mh-100 rounded "/>
+                    <img src={img} className="img-fluid mh-100 rounded " alt="loaded"/>
                 </div>
             )
         })
@@ -195,7 +200,7 @@ export default class Item extends Component{
                                 <div className="col-4 fs-4">
                                     {
                                         this.state.id !== "" ?
-                                            <button type="button" className="btn btn-dark w-100" onClick={this.remove}>
+                                            <button type="button" className={"btn " + this.state.removeButColor + " w-100"} onClick={this.remove}>
                                                 Remove&nbsp;
                                                 <i className="fas fa-trash-alt"/>
                                             </button>
@@ -226,7 +231,7 @@ export default class Item extends Component{
                             &nbsp;
                             <i className="fas fa-angle-right"/>
                             &nbsp;
-                            <Link to={{pathname:"/catalog", props: {subcategory: this.state.subcategory}}} style={linkStyles}>
+                            <Link to={{pathname:"/catalog", props: {category: this.state.category, subcategory: this.state.subcategory}}} style={linkStyles}>
                                 {this.state.subcategory}
                             </Link>
                         </div>
@@ -275,7 +280,7 @@ export default class Item extends Component{
     onImageChange = () => {
         const imgs = [];
         let counter = 0;
-        [...document.getElementById("uploadImgs").files].map((f)=>{
+        [...document.getElementById("uploadImgs").files].forEach((f)=>{
             let reader = new FileReader();
             reader.onload = (e) => {
                 imgs.push(e.target.result)
@@ -289,29 +294,60 @@ export default class Item extends Component{
 
     }
 
+    remove = async() => {
+        if(this.state.id !== "") // new item
+        {
+            this.setState({removeButColor: this.btnColors.waiting})
+            await firestore.collection("items").doc(this.state.id)
+                .get()
+                .then((result) => {
+                    if(result.exists)
+                    {
+                        console.log(result);
+                        firestore.collection("items").doc(this.state.id)
+                            .delete()
+                            .then(()=>{
+                                this.setState({removeButColor: this.btnColors.success})
+                                setTimeout(()=>{this.setState({removeButColor: this.btnColors.default})}, 1000)
+                            })
+                    }
+                    else
+                        throw new Error("item does not exist")
+                })
+                .catch((error) => {
+                    this.setState({removeButColor: this.btnColors.error})
+                    setTimeout(()=>{this.setState({removeButColor: this.btnColors.default})}, 1000)
+                    console.error("Error updating document: ", error);
+                })
+        }
+        else{
+            this.setState({removeButColor: this.btnColors.error})
+            setTimeout(()=>{this.setState({removeButColor: this.btnColors.default})}, 1000)
+        }
+    }
+
     save = async () => {
+        const title = document.getElementById("title").value
+        const category = document.getElementById("categoriesSelect")
+        const subcategory = document.getElementById("subcategoriesSelect")
+        const description = document.getElementById("description").value
+        const price = document.getElementById("price").value
+
+        if(!title || !category || !subcategory || category.value === -1 || subcategory.value === -1 || !description || !price)
+        {
+            this.setState({saveButColor: this.btnColors.error})
+            setTimeout(()=>{this.setState({saveButColor: this.btnColors.default})}, 1000)
+            return
+        }
+
+        this.setState({saveButColor: this.btnColors.waiting})
+
         if(this.state.id === "") // new item
         {
-            // save
-            const title = document.getElementById("title").value
-            const category = document.getElementById("categoriesSelect")
-            const subcategory = document.getElementById("subcategoriesSelect")
-            const description = document.getElementById("description").value
-            const price = document.getElementById("price").value
-
-            if(!title || !category || !subcategory || category.value === -1 || subcategory.value === -1 || !description || !price)
-            {
-                this.setState({saveButColor: this.btnColors.error})
-                setTimeout(()=>{this.setState({saveButColor: this.btnColors.default})}, 1000)
-                return
-            }
-
-            this.setState({saveButColor: this.btnColors.waiting})
             await firestore.collection('items').add({
                 title: title,
                 imgs: this.state.imgs,
                 category: category.value,
-                //subcategory: subcategory.options[subcategory.selectedIndex].text,
                 subcategory: subcategory.value,
                 description: description,
                 price: price,
@@ -322,7 +358,34 @@ export default class Item extends Component{
         }
         else // update item
         {
-            
+            await firestore.collection("items").doc(this.state.id)
+                .get()
+                .then((result) => {
+                    if(result.exists)
+                    {
+                        console.log(result);
+                        firestore.collection("items").doc(this.state.id)
+                            .update(
+                                "title", title,
+                                "imgs", this.state.imgs,
+                                "category", category.value,
+                                "subcategory", subcategory.value,
+                                "description", description,
+                                "price", price,
+                            )
+                            .then(()=>{
+                                this.setState({saveButColor: this.btnColors.success})
+                                setTimeout(()=>{this.setState({saveButColor: this.btnColors.default})}, 1000)
+                            })
+                    }
+                    else
+                        throw  new Error("item does not exist")
+                })
+                .catch((error) => {
+                    this.setState({saveButColor: this.btnColors.error})
+                    setTimeout(()=>{this.setState({saveButColor: this.btnColors.default})}, 1000)
+                    console.error("Error updating document: ", error);
+                })
         }
     }
 

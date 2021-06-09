@@ -1,8 +1,5 @@
 import React, {Component} from 'react'
-import {Link} from "react-router-dom";
-import firebase from "firebase";
 import {firestore} from "../../base"
-import {useCollectionData} from "react-firebase-hooks/firestore"
 
 export default class Contacts extends Component {
     state = {
@@ -52,7 +49,7 @@ export default class Contacts extends Component {
                 <div className="row pt-3 text-center">
                     <div className="col-md-8">
                         <h3><strong>Our Location</strong></h3>
-                        <iframe src="https://www.google.ru/maps/d/embed?mid=1ZB1CNteElVsXdcp98dMBRoMaqfc6oiSI" style={{
+                        <iframe title="map" src="https://www.google.ru/maps/d/embed?mid=1ZB1CNteElVsXdcp98dMBRoMaqfc6oiSI" style={{
                             border: '0',
                             width: '100%',
                             height: '50vh',

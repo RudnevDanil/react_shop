@@ -2,7 +2,7 @@ import React from 'react'
 import Card from "../Card/Card";
 
 export default function CardGrid(props){
-    const cards = props.items.map((el, i) => <Card item={el} removeFromCartBut={props.removeFromCartBut} key={i}/>)
+    const cards = props.items.map((el, i) => <Card item={el} key={i}/>)
 
     const cardRows = []
     for(let i = 0; i < cards.length; i+=4)

@@ -11,10 +11,10 @@ export default class Card extends Component {
     render() {
         if (this.state.redirect) return <Redirect to={{
             pathname: "/item",
-            props: {adminMode: this.props.removeFromCartBut ,...this.props.item}
+            props: {...this.props.item}
             }}/>;
 
-        let [hit, offer, discount, placeholder] = [, , , ""]
+        let [hit, offer, discount, placeholder] = [null, null, null, ""]
 
         if (this.props.marks) {
             if (this.props.marks.hit)
@@ -36,7 +36,9 @@ export default class Card extends Component {
                 placeholder = <div className="col-12">&nbsp;</div>
         }
 
-        const button = this.props.removeFromCartBut && this.props.removeFromCartBut === "true" ?
+        /*
+        // if buttons should be different for admin and user
+        const button = localStorage.hasOwnProperty("adminMode") && localStorage.getItem("adminMode") === "true" ?
             (
                 <button type="button" className="btn btn-danger float-end mw-100">
                     Remove&nbsp;
@@ -49,11 +51,18 @@ export default class Card extends Component {
                     <i className="fas fa-shopping-basket"/>
                 </button>
             )
+         */
+        const button =
+            <button type="button" className="btn btn-primary float-end mw-100">
+                Add&nbsp;
+                <i className="fas fa-shopping-basket"/>
+            </button>
 
         const item = this.props.item
         const title = item ? item.title : "______"
         const subcategory = item ? item.subcategory : "______"
         const price = item ? item.price : "______"
+        const src = item && item.imgs.length > 0 ? item.imgs[0] : defaultImg
 
         return (
             <div className="card" style={{width: "100%"}} onClick={() => {this.setState({redirect: true})}}>
@@ -65,9 +74,9 @@ export default class Card extends Component {
                         {discount ? discount : ""}
                     </div>
                     :
-                    <div></div>
+                    <div/>
                 }
-                <img src={defaultImg} alt="Item image" className="card-img-top"/>
+                <img src={src} alt="Item" className="card-img-top"/>
                 <div className="card-body">
                     <h5 className="card-title">{title}</h5>
                     <h6 className="card-subtitle mb-2 text-muted">{subcategory}</h6>

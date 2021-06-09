@@ -2,7 +2,6 @@ import React , {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
-import LoremIpsum from "./components/LoremIpsum";
 import {Switch, Route} from 'react-router-dom';
 
 import Home from './components/pages/Home';
@@ -14,7 +13,6 @@ import Cart from './components/pages/Cart';
 import PageNotFound from './components/pages/PageNotFound';
 import Admin from "./components/pages/Admin";
 import Item from "./components/pages/Item";
-
 
 class App extends Component{
 

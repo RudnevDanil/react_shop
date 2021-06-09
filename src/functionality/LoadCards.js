@@ -14,10 +14,8 @@ async function LoadCards(params) {
         collection = collection.limit(params.amount)
 
     let items = []
-    let lastVisible = null
     await collection.get()
         .then(function (querySnapshot) {
-            lastVisible = querySnapshot.docs[querySnapshot.docs.length-1]
             querySnapshot.forEach(function (doc) {
                 const data = doc.data()
                 items.push({

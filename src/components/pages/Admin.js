@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {Link} from "react-router-dom";
-import {testItem} from "../Catalog/testCatalogData";
 import {firestore, firebase} from "../../base"
 import LoadCategories from "../../functionality/LoadCategories";
 
@@ -17,7 +16,7 @@ export default class Admin extends Component{
 
         this.state = {
             authError: false,
-            logged: false,
+            logged: localStorage.hasOwnProperty("adminMode") && localStorage.getItem("adminMode") === "true",
             addCategoryColor: this.btnColors.default,
             removeCategoryColor: this.btnColors.default,
             removeSubcategoryColor: this.btnColors.default,
@@ -88,39 +87,33 @@ export default class Admin extends Component{
             ( // if logged show actions
                 <div className="row text-center">
                     <div className="col-md-12">
-                        <div className="row">
+                        <div className="row justify-content-end">
                             <div className="col-md-4">
-                                <Link to={{pathname:"/item", props: {adminMode: true}}} className="btn btn-dark mt-4">
+                                <Link to={{pathname:"/item", props: {adminMode: true}}} className="btn  w-100 btn-dark">
                                     Create new Item&nbsp;
                                     <i className="fas fa-plus-square"/>
                                 </Link>
                             </div>
                         </div>
 
-                        <div className="row">
-                            <div className="col-md-4">
-                                <div className="mt-4">
+                        <div className="row justify-content-end">
+                            <div className="col-md-4 mt-4">
                                     <input type="input" className="form-control" id="newCategory" placeholder="New category"/>
-                                </div>
                             </div>
-                            <div className="col-md-4">
-                                <button type="button" className={"btn " + this.state.addCategoryColor + " mt-4"}
-                                        onClick={this.newCategory}>
+                            <div className="col-md-4 mt-4">
+                                <button type="button" className={"btn w-100 " + this.state.addCategoryColor} onClick={this.newCategory}>
                                     Add new category&nbsp;
                                     <i className="fas fa-caret-right"/>
                                 </button>
                             </div>
                         </div>
 
-                        <div className="row">
-                            <div className="col-md-4">
-                                <div className="mt-4">
+                        <div className="row justify-content-end">
+                            <div className="col-md-4 mt-4">
                                     {catsSelectForRemoveCat}
-                                </div>
                             </div>
-                            <div className="col-md-4">
-                                <button type="button" className={"btn " + this.state.removeCategoryColor + " mt-4"}
-                                        onClick={this.removeCategory}>
+                            <div className="col-md-4 mt-4">
+                                <button type="button" className={"btn w-100 " + this.state.removeCategoryColor} onClick={this.removeCategory}>
                                     Remove category&nbsp;
                                     <i className="fas fa-trash-alt"/>
                                 </button>
@@ -128,41 +121,40 @@ export default class Admin extends Component{
                         </div>
 
                         <div className="row">
-                            <div className="col-md-4">
-                                <div className="mt-4">
+                            <div className="col-md-4 mt-4">
                                     {catsSelectForRemoveSubcat}
-                                </div>
                             </div>
-                            <div className="col-md-4">
-                                <div className="mt-4">
+                            <div className="col-md-4 mt-4">
                                     {subcatsSelectForRemoveSubcat}
-                                </div>
                             </div>
-                            <div className="col-md-4">
-                                <button type="button" className={"btn " + this.state.removeSubcategoryColor + " mt-4"}
-                                        onClick={this.removeSubcategory}>
+                            <div className="col-md-4 mt-4">
+                                <button type="button" className={"btn w-100 " + this.state.removeSubcategoryColor} onClick={this.removeSubcategory}>
                                     Remove subcategory&nbsp;
                                     <i className="fas fa-trash-alt"/>
                                 </button>
                             </div>
                         </div>
 
-                        <div className="row mb-4">
-                            <div className="col-md-4">
-                                <div className="mt-4">
+                        <div className="row">
+                            <div className="col-md-4 mt-4">
                                     {catsSelectForSubCat}
-                                </div>
                             </div>
-                            <div className="col-md-4">
-                                <div className="mt-4">
+                            <div className="col-md-4 mt-4">
                                     <input type="input" className="form-control" id="newSubCategory" placeholder="New subcategory"/>
-                                </div>
                             </div>
-                            <div className="col-md-4">
-                                <button type="button" className={"btn " + this.state.addSubCategoryColor + " mt-4"}
-                                        onClick={this.newSubCategory}>
+                            <div className="col-md-4 mt-4">
+                                <button type="button" className={"btn w-100 " + this.state.addSubCategoryColor} onClick={this.newSubCategory}>
                                     Add new subcategory&nbsp;
                                     <i className="fas fa-caret-right"/>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="row mb-4 justify-content-end">
+                            <div className="col-md-4  mt-4">
+                                <button type="button" className={"btn w-100 btn-dark"} onClick={this.logOutClicked}>
+                                    Log out&nbsp;
+                                    <i className="fas fa-sign-out-alt"/>
                                 </button>
                             </div>
                         </div>
@@ -177,10 +169,10 @@ export default class Admin extends Component{
                                 <input type="password" className="form-control" id="adminPass" placeholder="Password"/>
                             </div>
                         </div>
-                        <div className="col-md-2">
-                            <button type="button" className={"btn " + (this.state.authError ? "btn-danger" : "btn-dark") + " mt-4"} onClick={this.logInClicked}>
+                        <div className="col-md-2 mt-4">
+                            <button type="button" className={"btn " + (this.state.authError ? "btn-danger" : "btn-dark")} onClick={this.logInClicked}>
                                 Log in&nbsp;
-                                <i className="fas fa-caret-right"/>
+                                <i className="fas fa-sign-in-alt"/>
                             </button>
                         </div>
                 </div>
@@ -197,12 +189,20 @@ export default class Admin extends Component{
     logInClicked = () =>{
         firebase.auth().signInWithEmailAndPassword("admin@admin.ru", document.getElementById("adminPass").value)
             .then(user => {
+                localStorage.setItem("adminMode", "true")
                 this.setState({logged: true})
             })
             .catch(err =>{
                 this.setState({authError: true})
                 setTimeout(()=>{this.setState({authError: false})}, 1000)
             })
+    }
+
+    logOutClicked = () =>{
+        firebase.auth().signOut().then(()=>{
+            localStorage.setItem("adminMode", "false")
+            this.props.history.push('/')
+        })
     }
 
     newCategory = async () =>{

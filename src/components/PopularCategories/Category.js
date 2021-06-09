@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from "react-router-dom";
 
 export default function Category(props) {
     return(
@@ -10,7 +11,9 @@ export default function Category(props) {
                     </div>
                 </div>
                 <div className="row d-flex justify-content-center" style={{height: "18vh"}}>
-                    <img src={props.img} className="img-fluid mh-100" />
+                    <Link to={{pathname:"/catalog", props: {category: props.category, subcategory: props.subcategory}}} className="mh-100">
+                        <img src={props.img} className="img-fluid mh-100 w-100" alt="come of popular category"/>
+                    </Link>
                 </div>
             </div>
         </div>

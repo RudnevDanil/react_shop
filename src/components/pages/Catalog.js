@@ -5,13 +5,20 @@ import LoadCards from "../../functionality/LoadCards";
 
 export default class Catalog extends Component {
 
-    state = {
-        categories: [],
-        current: "",
-        items: [],
-        category: null,
-        subcategory: null,
-        loadedAmount: -1,
+    constructor(props) {
+        super(props);
+
+        let category = props.history.location.props && props.history.location.props.category ? props.history.location.props.category : null
+        let subcategory = props.history.location.props && props.history.location.props.subcategory ? props.history.location.props.subcategory : null
+
+        this.state = {
+            categories: [],
+            current: subcategory ? subcategory : (category ? category : ""),
+            items: [],
+            category: category,
+            subcategory: subcategory,
+            loadedAmount: -1,
+        }
     }
 
     componentWillUnmount() {
@@ -54,7 +61,17 @@ export default class Catalog extends Component {
 
         if(!this.state.categories.length) {
             LoadCategories().then((result) => {
-                this.setState({categories: result})
+                let cat = this.state.subcategory // do this because store category as id, and current arrow waiting name
+                if(this.state.current !== "" && !this.state.subcategory)
+                    result.forEach(el => {
+                        if(el.id === this.state.category)
+                            cat = el.title
+                    })
+
+                this.setState({
+                    categories: result,
+                    current: cat
+                })
             })
         }
 
@@ -100,7 +117,7 @@ export default class Catalog extends Component {
                             this.state.loadedAmount < 0 ?
                                 <div className="spinner-border" role="status"/>
                                 :
-                                <CardGrid removeFromCartBut={true} items={this.state.items}/>
+                                <CardGrid items={this.state.items}/>
                         }
                     </div>
                 </div>
