@@ -37,7 +37,8 @@ export default class Item extends Component{
             saveButColor: this.btnColors.default,
             removeButColor: this.btnColors.default,
             categories: [],
-            categoryName: ""
+            categoryName: "",
+            buyBtnColor: this.btnColors.default
         }
     }
 
@@ -263,7 +264,7 @@ export default class Item extends Component{
                             {/* Button */}
                             <div className="row mb-2">
                                 <div className="col-12 fs-4">
-                                    <button type="button" className="btn btn-dark w-100" onClick={this.addToCart}>
+                                    <button type="button" className={"btn w-100 " + (this.state.buyBtnColor)} onClick={this.addToCart}>
                                         Buy&nbsp;
                                         <i className="fas fa-shopping-basket"/>
                                     </button>
@@ -398,8 +399,21 @@ export default class Item extends Component{
         }
     }
 
-    addToCart = () => {
-        console.log(" --- Test --- need add to cart")
+    _setAmount(id, diff){
+        let localStorageNow = JSON.parse(localStorage.getItem("cart"))
+        if(localStorageNow[id] + diff <= 0)
+        {
+            delete localStorageNow[id]
+            localStorage.setItem("cart", JSON.stringify({...localStorageNow}))
+        }
+        else
+            localStorage.setItem("cart", JSON.stringify({...localStorageNow, [id]: localStorageNow[id] ? localStorageNow[id] + diff : 1}))
+    }
+
+    addToCart = async() => {
+        this._setAmount(this.state.id, 1)
+        this.setState({buyBtnColor: this.btnColors.success})
+        setTimeout(()=>{this.setState({buyBtnColor: this.btnColors.default})}, 1000)
     }
 
     selectCatForRemoveSubcatChanged = () =>{
