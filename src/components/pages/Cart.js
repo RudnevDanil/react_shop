@@ -45,7 +45,6 @@ export default class Cart extends Component {
         if(this.state.items.length === 0 && isCartFull)
             LoadCards({arr: Object.keys(JSON.parse(localStorage.getItem("cart")))})
                 .then((items) => {
-                    console.log(items)
                     if(items.length)
                         this.setState({items: items,})
                 })
