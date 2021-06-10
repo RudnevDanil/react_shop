@@ -13,6 +13,7 @@ import Cart from './components/pages/Cart';
 import PageNotFound from './components/pages/PageNotFound';
 import Admin from "./components/pages/Admin";
 import Item from "./components/pages/Item";
+import Orders from "./components/pages/Orders";
 
 class App extends Component{
 
@@ -36,6 +37,7 @@ class App extends Component{
                       <Route path="/cart" component={Cart}/>
                       <Route path="/admin" component={Admin}/>
                       <Route path="/item" component={Item}/>
+                      <Route path="/orders" component={Orders}/>
                       <Route component={PageNotFound}/>
                   </Switch>
               </div>

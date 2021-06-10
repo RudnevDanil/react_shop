@@ -89,7 +89,16 @@ export default class Admin extends Component{
                     <div className="col-md-12">
                         <div className="row justify-content-end">
                             <div className="col-md-4">
-                                <Link to={{pathname:"/item", props: {adminMode: true}}} className="btn  w-100 btn-dark">
+                                <Link to="/orders" className="btn  w-100 btn-dark">
+                                    Orders&nbsp;
+                                    <i className="fas fa-boxes"/>
+                                </Link>
+                            </div>
+                        </div>
+
+                        <div className="row justify-content-end">
+                            <div className="col-md-4 mt-4">
+                                <Link to="/item" className="btn  w-100 btn-dark">
                                     Create new Item&nbsp;
                                     <i className="fas fa-plus-square"/>
                                 </Link>
