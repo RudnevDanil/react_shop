@@ -57,7 +57,7 @@ export default class Cart extends Component {
                     <CardGrid items={this.state.items}/>
                 )
                 :
-                <h4>Your cart is empty!</h4>
+                <h4 className="text-dark">Your cart is empty!</h4>
 
         return (
             <div className="container">

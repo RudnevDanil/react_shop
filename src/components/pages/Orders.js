@@ -27,7 +27,6 @@ export default class Orders extends Component {
         if(this.state.orders.length === 0 && this.state.ordersLoading)
             LoadOrders()
                 .then((orders) => {
-                    console.log(orders)
                     this.setState({
                         orders: orders,
                         ordersLoading: false,

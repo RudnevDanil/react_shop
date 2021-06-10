@@ -36,7 +36,8 @@ export default class Item extends Component{
             adminMode: localStorage.hasOwnProperty("adminMode") && localStorage.getItem("adminMode") === "true",
             saveButColor: this.btnColors.default,
             removeButColor: this.btnColors.default,
-            categories: []
+            categories: [],
+            categoryName: ""
         }
     }
 
@@ -90,7 +91,15 @@ export default class Item extends Component{
     {
         if(!this.state.categories.length) {
             LoadCategories().then((result) => {
-                this.setState({categories: result})
+                let categoryName = null
+                result.forEach(el=>{
+                    if(el.id === this.state.category)
+                        categoryName = el.title
+                })
+                this.setState({
+                    categories: result,
+                    categoryName: categoryName || ""
+                })
             })
         }
 
@@ -185,7 +194,7 @@ export default class Item extends Component{
                                     Description:
                                 </div>
                                 <div className="col-8">
-                                    <textarea className="form-control" id="description" rows="2" placeholder="Description" defaultValue={this.state.title}/>
+                                    <textarea className="form-control" id="description" rows="2" placeholder="Description" defaultValue={this.state.description}/>
                                 </div>
                             </div>
 
@@ -226,7 +235,7 @@ export default class Item extends Component{
                     <div className="row mb-2">
                         <div className="col-12 fs-6 text-black-50">
                             <Link to={{pathname:"/catalog", props: {category: this.state.category}}} style={linkStyles}>
-                                {this.state.category}
+                                {this.state.categoryName}
                             </Link>
                             &nbsp;
                             <i className="fas fa-angle-right"/>
